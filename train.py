@@ -24,6 +24,7 @@ def main():
     parser.add_argument('--nch_in',type=int,default=100,help='the number of channels for input')
     parser.add_argument('--nch_out',type=int,default=3,help='the number of channels for output')
     parser.add_argument('--n_class', type=int, default=10, help='the number of class')
+    parser.add_argument('--loss', type=str, default="gan", help='select loss')
 
     args = parser.parse_args()
 
@@ -42,6 +43,7 @@ def main():
     nch_in = args.nch_in
     nch_out = args.nch_out
     n_class = args.n_class
+    loss = args.loss
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -51,9 +53,10 @@ def main():
     init_weights(netG)
     init_weights(netD)
 
-
-
-    loss_func = nn.BCELoss().to(device)
+    if loss == "gan" :
+        loss_func = loss_func = nn.BCELoss().to(device)
+    else :
+        loss_func = nn.MSELoss().to(device)
 
     optimG = torch.optim.Adam(netG.parameters(), lr=lr_G, betas=(0.5, 0.999))
     optimD = torch.optim.Adam(netD.parameters(), lr=lr_D, betas=(0.5, 0.999))
