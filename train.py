@@ -54,7 +54,7 @@ def main():
     init_weights(netD)
 
     if loss == "gan" :
-        loss_func = loss_func = nn.BCELoss().to(device)
+        loss_func = loss_func = nn.BCEWithLogitsLossLoss().to(device)
     else :
         loss_func = nn.MSELoss().to(device)
 

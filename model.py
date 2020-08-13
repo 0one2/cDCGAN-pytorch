@@ -55,7 +55,7 @@ class DCGAN_D(nn.Module):
         x = self.CBR4(x)
         x = self.CBR5(x)
 
-        x = torch.sigmoid(x)
+        #x = torch.sigmoid(x)
 
         return x
 
